@@ -1,0 +1,65 @@
+openapi: 3.0.0
+info:
+  title: Tasklist
+  description: Php test
+  version: 1.0.0
+paths:
+  /api/jobs:
+    get:
+      summary: Get all jobs based on user timezone
+      description: Since we have no authentication system, it gets a random user from the database
+      responses:
+        "200":
+          description: A list of not assigned jobs
+          content:
+            application/json:
+              schema:
+                type: array
+  /api/job/{id}/assign:
+    post:
+      summary: Assing the user to the job
+      description: Get the user id from the previous api and use it in request body
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                user_id:
+                  type: integer
+                  description: User id from the previous api
+                estimated_date:
+                  type: string
+                  description: Date in format Y-m-d H:mm
+              required:
+                - user_id
+                - estimated_date
+      responses:
+        "200":
+          description: User is assigned to the job
+        "400":
+          description: Something went wrong
+  /api/job/{id}/complete:
+    post:
+      summary: User completes the job
+      description: User completes job and adds assessment (using the user id again in request body)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                user_id:
+                  type: integer
+                  description: User id from the previous api
+                assessment:
+                  type: text
+                  description: Assessment of the job
+              required:
+                - user_id
+                - assessment
+      responses:
+        "200":
+          description: Job is completed successfully
+        "400":
+          description: Something went wrong

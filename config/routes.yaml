@@ -1,0 +1,17 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+jobs_list:
+    path: /api/jobs
+    controller: App\Controller\JobController::index
+    methods: GET
+job_assign:
+    path: /api/job/{id}/assign
+    controller: App\Controller\JobController::assign
+    methods: POST
+job_complete:
+    path: /api/job/{id}/complete
+    controller: App\Controller\JobController::complete
+    methods: POST
